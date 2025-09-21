@@ -1,5 +1,8 @@
 # ⛩️ JS Sensei
 
+JS Sensei is an interactive learning dojo for JavaScript fundamentals.
+Users can practice through quizzes, flashcards, and guided lessons while earning points and leveling up from white belt to black belt. The app features an AI tutor for personalized explanations, gamified progress tracking, and Supabase-powered authentication and persistence. Designed with Next.js 14, TailwindCSS, and modern tooling, it demonstrates full-stack skills in state management, database integration, and interactive UI/UX design
+
 Train your JavaScript fundamentals in our interactive dojo.  
 Level up from white belt to black belt with practice quizzes, flashcards, and one-on-one tutelage from our AI Sensei.
 
@@ -123,7 +126,7 @@ After first deploy:
 - Add production URL to Supabase Auth settings.
 - Update NEXT_PUBLIC_SITE_URL to the production domain in Vercel settings.
 
-Redeploy and enjoy 🎉
+### Redeploy and enjoy 🎉
 
 ## 📌 Roadmap & Future Updates
 
