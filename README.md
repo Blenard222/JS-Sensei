@@ -56,15 +56,25 @@ Level up from white belt to black belt with practice quizzes, flashcards, and on
 
 ## 📸 Screenshots
 
-*(Add images in `/public` and update paths below)*
+<p align="center">
+  <img src="https://github.com/CodingWCal/JS-Sensei/blob/main/JS-SENSEI-LANDINGPAGE.png" width="650" alt="JS Sensei Landing"/>
+  <br/><em>Landing Page</em>
+</p>
 
-![Landing Page](./public/screenshot-landing.png)
+<p align="center">
+  <img src="https://github.com/CodingWCal/JS-Sensei/blob/main/JS-SENSEI-TOPICS.png" width="650" alt="JS Sensei Topics"/>
+  <br/><em>Topics Page</em>
+</p>
 
-![Topics](./public/screenshot-topics.png)
+<p align="center">
+  <img src="https://github.com/CodingWCal/JS-Sensei/blob/main/JS-SENSEI-LEARN.png" width="650" alt="JS Sensei Learn"/>
+  <br/><em>Learn Page</em>
+</p>
 
-![Learn Page](./public/screenshot-learn.png)
-
-![Quiz](./public/screenshot-quiz.png)
+<p align="center">
+  <img src="https://github.com/CodingWCal/JS-Sensei/blob/main/JS-SENSEI-QUIZ.png" width="650" alt="JS Sensei Quiz"/>
+  <br/><em>Quiz Page</em>
+</p>
 
 ---
 
