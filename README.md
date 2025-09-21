@@ -169,7 +169,6 @@ After first deploy:
 - [ ]  Dark mode dojo theme
 - [ ]  PWA support
 
-      ---
 ## 💡 Inspiration
   - [[The Programming Podcast with Leon Noel & Danny Thompson - JavaScript Roadmap)](https://www.youtube.com/watch?v=U4CbEV1QfOs)
   - [MIT Bloom Two Sigma Problem](https://web.mit.edu/5.95/readings/bloom-two-sigma.pdf)
