@@ -101,15 +101,15 @@ npm run dev
 ## 🔑 Environment Variables
 
 Create a .env.local in /web with:
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-SUPABASE_ANON_KEY=your_supabase_anon_key
-GEMINI_API_KEY=your_gemini_api_key
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
+- [x] NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+- [x] SUPABASE_ANON_KEY=your_supabase_anon_key
+- [x] GEMINI_API_KEY=your_gemini_api_key
+- [x] NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 Note:
 Add your Vercel URL to Supabase Auth “Site URL” + “Redirect URLs”.
 For GitHub sign-in, callback URL must be:
-https://<your-project-ref>.supabase.co/auth/v1/callback
+- [x] https://<your-project-ref>.supabase.co/auth/v1/callback
 
 ## 🚀 Deployment
 
@@ -125,12 +125,12 @@ Update NEXT_PUBLIC_SITE_URL to the production domain in Vercel settings.
 
 Redeploy and enjoy 🎉
 
-## 📌 Roadmap
+## 📌 Roadmap & Future Updates
 
-Progress bar for XP → next belt
-Confetti on belt rank-up
-Streaks and daily challenges
-Dark mode dojo theme
-PWA support
+- [x] Progress bar for XP → next belt
+- [x] Confetti on belt rank-up
+- [x] Streaks and daily challenges
+- [x] Dark mode dojo theme
+- [x] PWA support
 
 ## 📄 License: MIT
