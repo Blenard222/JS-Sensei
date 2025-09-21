@@ -57,6 +57,7 @@ Level up from white belt to black belt with practice quizzes, flashcards, and on
 ---
 
 ## 🏗 Project Structure
+```
 web/
 ├── app/                   # Next.js App Router pages
 │   ├── page.tsx           # Landing page
@@ -75,7 +76,7 @@ web/
 ├── package.json
 ├── tsconfig.json
 └── README.md
-
+```
 ---
 
 ## ⚙️ Local Development
