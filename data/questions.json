@@ -1,0 +1,722 @@
+[
+  {
+    "id": 1,
+    "topic": "variables_types",
+    "prompt": "Which of the following correctly declares a constant variable in JavaScript?",
+    "choices": ["let x = 5;", "const x = 5;", "var x = 5;", "x = 5;"],
+    "answerIndex": 1,
+    "hint": "Constants can't be reassigned after initial declaration.",
+    "whyWrong": "let allows reassignment, var is function-scoped, and x = 5 is an invalid declaration without a keyword."
+  },
+  {
+    "id": 2,
+    "topic": "variables_types",
+    "prompt": "What type is the result of typeof null in JavaScript?",
+    "choices": ["null", "undefined", "object", "number"],
+    "answerIndex": 2,
+    "hint": "This is a quirk in JavaScript's type system.",
+    "whyWrong": "Despite being a historical mistake, typeof null returns 'object', not the value null itself."
+  },
+  {
+    "id": 3,
+    "topic": "variables_types",
+    "prompt": "Which data type represents a single character in JavaScript?",
+    "choices": ["char", "string", "There is no char type", "symbol"],
+    "answerIndex": 2,
+    "hint": "JavaScript doesn't have a separate character type.",
+    "whyWrong": "Unlike some languages, JavaScript uses strings for single characters, with no dedicated char type."
+  },
+  {
+    "id": 10,
+    "topic": "variables_types",
+    "prompt": "What is the difference between == and === in JavaScript?",
+    "choices": ["No difference", "== checks value, === checks type", "=== checks value, == checks type", "They are completely unrelated"],
+    "answerIndex": 1,
+    "hint": "One operator performs type coercion, the other does not.",
+    "whyWrong": "== performs type coercion, while === checks both value and type without conversion."
+  },
+  {
+    "id": 11,
+    "topic": "variables_types",
+    "prompt": "Which of these is a primitive data type in JavaScript?",
+    "choices": ["Array", "Object", "Function", "Number"],
+    "answerIndex": 3,
+    "hint": "Primitive types are immutable and passed by value.",
+    "whyWrong": "Number is a primitive, while Array, Object, and Function are reference types."
+  },
+  {
+    "id": 12,
+    "topic": "variables_types",
+    "prompt": "What does the 'undefined' type represent?",
+    "choices": ["A deliberate absence of value", "A variable that hasn't been assigned", "An error in the code", "A null value"],
+    "answerIndex": 1,
+    "hint": "This occurs when a variable is declared but not initialized.",
+    "whyWrong": "undefined means a variable exists but has no assigned value, different from null which is an intentional absence of value."
+  },
+  {
+    "id": 13,
+    "topic": "variables_types",
+    "prompt": "How do you convert a string to a number?",
+    "choices": ["String(x)", "Number(x)", "parseInt(x)", "All of these"],
+    "answerIndex": 3,
+    "hint": "JavaScript offers multiple ways to convert types.",
+    "whyWrong": "Number(), parseInt(), and String() can all be used for type conversion in different scenarios."
+  },
+  {
+    "id": 14,
+    "topic": "variables_types",
+    "prompt": "What is the result of 0.1 + 0.2 in JavaScript?",
+    "choices": ["0.3", "0.30000000000000004", "0", "Error"],
+    "answerIndex": 1,
+    "hint": "This reveals floating-point arithmetic limitations.",
+    "whyWrong": "Due to binary floating-point representation, 0.1 + 0.2 doesn't exactly equal 0.3."
+  },
+  {
+    "id": 15,
+    "topic": "variables_types",
+    "prompt": "Which method creates a deep copy of an object?",
+    "choices": ["Object.assign()", "Spread operator {...}", "JSON.parse(JSON.stringify())", "Object.create()"],
+    "answerIndex": 2,
+    "hint": "This method works for most simple objects.",
+    "whyWrong": "JSON.parse(JSON.stringify()) creates a deep copy by converting to and from a JSON string, but loses functions and has limitations."
+  },
+  {
+    "id": 4,
+    "topic": "arrays_objects",
+    "prompt": "How do you add an element to the end of an array?",
+    "choices": ["array.push(element)", "array.add(element)", "array[array.length] = element", "array.append(element)"],
+    "answerIndex": 0,
+    "hint": "This method adds an element to the array's end.",
+    "whyWrong": "push() is the standard method, add() and append() don't exist, and direct index assignment is less common."
+  },
+  {
+    "id": 5,
+    "topic": "arrays_objects",
+    "prompt": "What is the correct way to create an empty object?",
+    "choices": ["let obj = [];", "let obj = '';", "let obj = {};", "let obj = new Object"],
+    "answerIndex": 2,
+    "hint": "Use curly braces to create an empty object.",
+    "whyWrong": "[] creates an empty array, '' is an empty string, and new Object() is less common than object literal syntax."
+  },
+  {
+    "id": 6,
+    "topic": "arrays_objects",
+    "prompt": "How can you check if a key exists in an object?",
+    "choices": ["object.hasKey('key')", "key in object", "object.exists('key')", "object.includes('key')"],
+    "answerIndex": 1,
+    "hint": "This operator checks for key existence directly.",
+    "whyWrong": "The 'in' operator is the standard way, other methods don't work as shown for checking object keys."
+  },
+  {
+    "id": 16,
+    "topic": "arrays_objects",
+    "prompt": "What method creates a new array with all elements that pass a test?",
+    "choices": ["array.select()", "array.where()", "array.filter()", "array.map()"],
+    "answerIndex": 2,
+    "hint": "This method creates a new array based on a condition.",
+    "whyWrong": "filter() creates a new array with elements that pass a test, unlike map() which transforms elements."
+  },
+  {
+    "id": 17,
+    "topic": "arrays_objects",
+    "prompt": "How do you remove the last element from an array?",
+    "choices": ["array.delete()", "array.remove()", "array.pop()", "array.shift()"],
+    "answerIndex": 2,
+    "hint": "This method removes and returns the last element.",
+    "whyWrong": "pop() removes the last element, shift() removes the first, delete() and remove() are not standard array methods."
+  },
+  {
+    "id": 18,
+    "topic": "arrays_objects",
+    "prompt": "What does the spread operator (...) do with arrays?",
+    "choices": ["Multiplies array elements", "Creates a shallow copy", "Removes duplicates", "Flattens nested arrays"],
+    "answerIndex": 1,
+    "hint": "It creates a new array with the same elements.",
+    "whyWrong": "Spread operator creates a shallow copy of an array, not performing deep copying or other transformations."
+  },
+  {
+    "id": 19,
+    "topic": "arrays_objects",
+    "prompt": "How can you merge two objects?",
+    "choices": ["object1 + object2", "Object.merge(object1, object2)", "{ ...object1, ...object2 }", "object1.concat(object2)"],
+    "answerIndex": 2,
+    "hint": "This method uses the spread operator to combine objects.",
+    "whyWrong": "Spread syntax { ...object1, ...object2 } merges objects, with later properties overriding earlier ones."
+  },
+  {
+    "id": 20,
+    "topic": "arrays_objects",
+    "prompt": "What method returns the first index of a given element in an array?",
+    "choices": ["array.first()", "array.indexOf()", "array.search()", "array.find()"],
+    "answerIndex": 1,
+    "hint": "This method returns the index of the first occurrence.",
+    "whyWrong": "indexOf() returns the first index of an element, find() returns the element itself, others are not standard methods."
+  },
+  {
+    "id": 21,
+    "topic": "arrays_objects",
+    "prompt": "How do you convert an array to a string?",
+    "choices": ["array.toString()", "String(array)", "array.join()", "array + ''"],
+    "answerIndex": 2,
+    "hint": "This method allows custom separator between elements.",
+    "whyWrong": "join() converts array to string with optional separator, toString() uses comma, other methods have different behaviors."
+  },
+  {
+    "id": 22,
+    "topic": "arrays_objects",
+    "prompt": "What does Object.keys() return?",
+    "choices": ["Object values", "Object entries", "Array of object's keys", "Object's prototype"],
+    "answerIndex": 2,
+    "hint": "This method returns an array of an object's own enumerable property names.",
+    "whyWrong": "Object.keys() returns an array of the object's own enumerable property names as strings."
+  },
+  {
+    "id": 7,
+    "topic": "loops_conditionals",
+    "prompt": "Which loop is best for iterating over array elements?",
+    "choices": ["while loop", "for...in loop", "for loop", "do...while loop"],
+    "answerIndex": 2,
+    "hint": "This loop is most commonly used for array iteration.",
+    "whyWrong": "for loop provides most control, while loops can be less predictable, for...in is for object properties."
+  },
+  {
+    "id": 8,
+    "topic": "loops_conditionals",
+    "prompt": "What does the === operator do?",
+    "choices": ["Assigns a value", "Checks value only", "Checks value and type", "Compares references"],
+    "answerIndex": 2,
+    "hint": "This checks both the value and the type of two variables.",
+    "whyWrong": "=== is strict equality, checking both value and type, unlike == which only checks value."
+  },
+  {
+    "id": 9,
+    "topic": "loops_conditionals",
+    "prompt": "How do you break out of a loop early?",
+    "choices": ["exit loop", "break", "continue", "return"],
+    "answerIndex": 1,
+    "hint": "This keyword immediately exits the current loop.",
+    "whyWrong": "break stops the loop, exit and return work differently, continue skips to next iteration."
+  },
+  {
+    "id": 23,
+    "topic": "loops_conditionals",
+    "prompt": "What does the && operator do?",
+    "choices": ["Bitwise AND", "Logical OR", "Logical AND", "Concatenation"],
+    "answerIndex": 2,
+    "hint": "This operator returns true only if both operands are true.",
+    "whyWrong": "Logical AND (&&) returns true only if both operands are truthy, otherwise returns the first falsy value."
+  },
+  {
+    "id": 24,
+    "topic": "loops_conditionals",
+    "prompt": "Which statement is used for multiple condition checking?",
+    "choices": ["if", "switch", "for", "while"],
+    "answerIndex": 1,
+    "hint": "This is more efficient for multiple exact value comparisons.",
+    "whyWrong": "switch is ideal for checking multiple exact values, while if is more flexible for complex conditions."
+  },
+  {
+    "id": 25,
+    "topic": "loops_conditionals",
+    "prompt": "What does the ternary operator do?",
+    "choices": ["Performs division", "Creates a loop", "Provides a shorthand if-else", "Checks type"],
+    "answerIndex": 2,
+    "hint": "This operator provides a compact way to write conditional statements.",
+    "whyWrong": "Ternary operator (condition ? valueIfTrue : valueIfFalse) is a shorthand for simple if-else logic."
+  },
+  {
+    "id": 26,
+    "topic": "loops_conditionals",
+    "prompt": "How does a for...of loop work?",
+    "choices": ["Iterates over object properties", "Iterates over array elements", "Creates an infinite loop", "Checks array length"],
+    "answerIndex": 1,
+    "hint": "This loop is designed for iterating over iterable objects.",
+    "whyWrong": "for...of iterates over the values of an iterable object like an array, unlike for...in which iterates over keys."
+  },
+  {
+    "id": 27,
+    "topic": "loops_conditionals",
+    "prompt": "What does the || operator do?",
+    "choices": ["Bitwise OR", "Logical AND", "Logical OR", "Concatenation"],
+    "answerIndex": 2,
+    "hint": "This operator returns the first truthy value.",
+    "whyWrong": "Logical OR (||) returns the first truthy value, or the last value if all are falsy."
+  },
+  {
+    "id": 28,
+    "topic": "loops_conditionals",
+    "prompt": "How do you skip the current iteration in a loop?",
+    "choices": ["break", "exit", "skip", "continue"],
+    "answerIndex": 3,
+    "hint": "This keyword moves to the next iteration of the loop.",
+    "whyWrong": "continue skips the rest of the current iteration and moves to the next, break exits the entire loop."
+  },
+  {
+    "id": 29,
+    "topic": "loops_conditionals",
+    "prompt": "What is short-circuit evaluation?",
+    "choices": ["A type of loop", "Stopping evaluation when result is certain", "A math operation", "An error handling technique"],
+    "answerIndex": 1,
+    "hint": "This occurs when logical operators stop evaluating after a certain point.",
+    "whyWrong": "Short-circuit evaluation means logical operators stop evaluating once the result is guaranteed."
+  },
+  {
+    "id": 30,
+    "topic": "functions_basics",
+    "prompt": "How do you declare a function in JavaScript?",
+    "choices": ["function myFunc()", "const myFunc = function()", "() => {}", "All of these"],
+    "answerIndex": 3,
+    "hint": "JavaScript supports multiple function declaration syntaxes.",
+    "whyWrong": "JavaScript has function declarations, function expressions, and arrow functions as valid ways to create functions."
+  },
+  {
+    "id": 31,
+    "topic": "functions_basics",
+    "prompt": "What does the 'return' keyword do?",
+    "choices": ["Exits the function", "Prints a value", "Sends a value back from the function", "Defines a function"],
+    "answerIndex": 2,
+    "hint": "This keyword specifies the value to be output from a function.",
+    "whyWrong": "return sends a value back from a function and immediately exits the function, different from console.log() which just prints."
+  },
+  {
+    "id": 32,
+    "topic": "functions_basics",
+    "prompt": "What are default parameters?",
+    "choices": ["Pre-defined function types", "Values used if no argument is passed", "Function modifiers", "Error handling mechanism"],
+    "answerIndex": 1,
+    "hint": "These provide fallback values for function arguments.",
+    "whyWrong": "Default parameters allow you to specify default values for function parameters if no argument is provided."
+  },
+  {
+    "id": 33,
+    "topic": "functions_basics",
+    "prompt": "What is a closure in JavaScript?",
+    "choices": ["A way to close a function", "A function that references variables from its outer scope", "An error handling technique", "A method to hide function implementation"],
+    "answerIndex": 1,
+    "hint": "This allows a function to access variables from its parent scope.",
+    "whyWrong": "A closure is a function that retains access to variables from its outer (enclosing) lexical scope even after the outer function has returned."
+  },
+  {
+    "id": 34,
+    "topic": "functions_basics",
+    "prompt": "What is the difference between function declaration and function expression?",
+    "choices": ["No difference", "Declaration is hoisted, expression is not", "Expression is hoisted, declaration is not", "One uses arrow syntax"],
+    "answerIndex": 0,
+    "hint": "Both create functions, but have subtle differences in behavior.",
+    "whyWrong": "Function declarations and expressions are very similar, with minor differences in hoisting and how they're defined."
+  },
+  {
+    "id": 35,
+    "topic": "functions_basics",
+    "prompt": "What does the 'this' keyword refer to in a function?",
+    "choices": ["The function itself", "The global object", "The object that called the function", "Always undefined"],
+    "answerIndex": 2,
+    "hint": "Its value depends on how the function is called.",
+    "whyWrong": "'this' refers to the object that invoked the method, which can change based on the calling context."
+  },
+  {
+    "id": 36,
+    "topic": "functions",
+    "prompt": "What is a pure function in JavaScript?",
+    "choices": ["A function that always returns true", "A function with no side effects", "A function that calls itself", "A function that modifies global state"],
+    "answerIndex": 1,
+    "hint": "A function that always produces the same output for the same input.",
+    "whyWrong": "Pure functions don't modify external state and always return the same result for the same arguments."
+  },
+  {
+    "id": 37,
+    "topic": "functions",
+    "prompt": "What does the 'arguments' object represent?",
+    "choices": ["A list of function arguments", "An array of function parameters", "A way to pass infinite arguments", "A global object"],
+    "answerIndex": 0,
+    "hint": "Allows access to all passed arguments in a function, even if not explicitly defined.",
+    "whyWrong": "arguments is an array-like object containing all arguments passed to a function, not an actual array."
+  },
+  {
+    "id": 38,
+    "topic": "functions",
+    "prompt": "What is function hoisting in JavaScript?",
+    "choices": ["Moving functions to the top of the file", "Automatically calling a function", "Function declarations are moved to the top of their scope", "Preventing function calls"],
+    "answerIndex": 2,
+    "hint": "Function declarations can be called before they are defined in the code.",
+    "whyWrong": "Function declarations are moved to the top of their scope during compilation, allowing early invocation."
+  },
+  {
+    "id": 39,
+    "topic": "functions",
+    "prompt": "What does the bind() method do?",
+    "choices": ["Creates a new function", "Calls a function immediately", "Removes function parameters", "Stops function execution"],
+    "answerIndex": 0,
+    "hint": "Creates a new function with a fixed 'this' context.",
+    "whyWrong": "bind() returns a new function with a specified 'this' value, without immediately invoking the function."
+  },
+  {
+    "id": 40,
+    "topic": "functions",
+    "prompt": "What is function composition?",
+    "choices": ["Combining multiple functions", "Nested function calls", "Creating function factories", "Recursive functions"],
+    "answerIndex": 0,
+    "hint": "Combining multiple functions to create a new function.",
+    "whyWrong": "Function composition involves passing the output of one function as input to another function."
+  },
+  {
+    "id": 41,
+    "topic": "functions",
+    "prompt": "What are higher-order functions?",
+    "choices": ["Functions with many parameters", "Functions that return another function", "Functions that take a function as argument", "Complex mathematical functions"],
+    "answerIndex": 2,
+    "hint": "Functions that can accept or return other functions.",
+    "whyWrong": "Higher-order functions can take functions as arguments or return functions, enabling powerful functional programming patterns."
+  },
+  {
+    "id": 42,
+    "topic": "functions",
+    "prompt": "What is the difference between map() and forEach()?",
+    "choices": ["They are exactly the same", "map() creates a new array, forEach() doesn't", "forEach() creates a new array, map() doesn't", "map() is faster"],
+    "answerIndex": 1,
+    "hint": "One creates a new transformed array, the other just iterates.",
+    "whyWrong": "map() returns a new array with the results of calling a function on every element, forEach() just iterates without returning anything."
+  },
+  {
+    "id": 43,
+    "topic": "functions",
+    "prompt": "What does the reduce() method do?",
+    "choices": ["Reduces array length", "Combines array elements into a single value", "Filters array elements", "Sorts array elements"],
+    "answerIndex": 1,
+    "hint": "Reduces an array to a single value by applying a function to each element.",
+    "whyWrong": "reduce() applies a function against an accumulator and each element to reduce the array to a single value."
+  },
+  {
+    "id": 44,
+    "topic": "functions",
+    "prompt": "What is a callback function?",
+    "choices": ["A function that calls back to its parent", "A function passed as an argument to another function", "A function that returns a value", "A recursive function"],
+    "answerIndex": 1,
+    "hint": "A function that is passed as an argument to another function.",
+    "whyWrong": "Callback functions are passed as arguments and executed after some operation completes."
+  },
+  {
+    "id": 45,
+    "topic": "methods_core",
+    "prompt": "What does the slice() method do?",
+    "choices": ["Removes elements from an array", "Creates a shallow copy of part of an array", "Modifies the original array", "Sorts array elements"],
+    "answerIndex": 1,
+    "hint": "Returns a portion of an array without modifying the original.",
+    "whyWrong": "slice() returns a new array containing a portion of the original array, without changing the original array."
+  },
+  {
+    "id": 46,
+    "topic": "methods_core",
+    "prompt": "What is the difference between splice() and slice()?",
+    "choices": ["They are the same method", "splice() modifies original array, slice() doesn't", "slice() modifies original array, splice() doesn't", "They work on different data types"],
+    "answerIndex": 1,
+    "hint": "One method changes the original array, the other creates a copy.",
+    "whyWrong": "splice() modifies the original array by removing or replacing existing elements, slice() creates a new array without modifying the original."
+  },
+  {
+    "id": 47,
+    "topic": "methods_core",
+    "prompt": "What does the find() method return?",
+    "choices": ["All matching elements", "The first element that passes a test", "The index of a matching element", "A boolean value"],
+    "answerIndex": 1,
+    "hint": "Returns the first element that satisfies the testing function.",
+    "whyWrong": "find() returns the first element in the array that passes the test, or undefined if no element passes."
+  },
+  {
+    "id": 48,
+    "topic": "methods_core",
+    "prompt": "What is the purpose of Object.assign()?",
+    "choices": ["Assigns a new method to an object", "Copies properties from one object to another", "Creates a deep clone of an object", "Removes object properties"],
+    "answerIndex": 1,
+    "hint": "Copies all enumerable properties from one or more source objects to a target object.",
+    "whyWrong": "Object.assign() copies properties from source objects to a target object, creating a shallow copy."
+  },
+  {
+    "id": 49,
+    "topic": "methods_core",
+    "prompt": "What does the some() method do?",
+    "choices": ["Checks if all elements pass a test", "Checks if any element passes a test", "Counts matching elements", "Transforms array elements"],
+    "answerIndex": 1,
+    "hint": "Tests whether at least one element in the array passes the test.",
+    "whyWrong": "some() returns true if at least one element in the array satisfies the provided testing function."
+  },
+  {
+    "id": 50,
+    "topic": "methods_core",
+    "prompt": "What is the every() method used for?",
+    "choices": ["Checks if all elements pass a test", "Checks if any element passes a test", "Transforms array elements", "Filters array elements"],
+    "answerIndex": 0,
+    "hint": "Tests whether all elements in the array pass the test.",
+    "whyWrong": "every() returns true only if all elements in the array satisfy the provided testing function."
+  },
+  {
+    "id": 51,
+    "topic": "methods_core",
+    "prompt": "What does Object.entries() return?",
+    "choices": ["An array of object's keys", "An array of object's values", "An array of key-value pairs", "A new object"],
+    "answerIndex": 2,
+    "hint": "Creates an array of a given object's own enumerable string-keyed property [key, value] pairs.",
+    "whyWrong": "Object.entries() returns an array of a given object's own enumerable string-keyed property [key, value] pairs."
+  },
+  {
+    "id": 52,
+    "topic": "methods_core",
+    "prompt": "What is the padStart() method used for?",
+    "choices": ["Adds padding to the start of a string", "Removes spaces from a string", "Checks string length", "Converts string to uppercase"],
+    "answerIndex": 0,
+    "hint": "Pads the current string with another string at the start.",
+    "whyWrong": "padStart() allows you to pad the beginning of a string with another string to a specified length."
+  },
+  {
+    "id": 53,
+    "topic": "methods_core",
+    "prompt": "What does Math.random() return?",
+    "choices": ["A random integer", "A random boolean", "A random number between 0 and 1", "A random string"],
+    "answerIndex": 2,
+    "hint": "Generates a pseudo-random number between 0 and 1.",
+    "whyWrong": "Math.random() returns a floating-point number between 0 (inclusive) and 1 (exclusive)."
+  },
+  {
+    "id": 54,
+    "topic": "methods_core",
+    "prompt": "What is the trim() method used for?",
+    "choices": ["Removes whitespace from both ends of a string", "Cuts a string in half", "Adds spaces to a string", "Converts string to lowercase"],
+    "answerIndex": 0,
+    "hint": "Removes whitespace from the beginning and end of a string.",
+    "whyWrong": "trim() removes whitespace from both ends of a string, leaving inner whitespace untouched."
+  },
+  {
+    "id": 55,
+    "topic": "async_await",
+    "prompt": "What does the async keyword do?",
+    "choices": ["Makes a function synchronous", "Allows a function to use await", "Stops function execution", "Creates a promise"],
+    "answerIndex": 1,
+    "hint": "Enables the use of await inside a function.",
+    "whyWrong": "async keyword allows the use of await inside a function and implicitly returns a promise."
+  },
+  {
+    "id": 56,
+    "topic": "async_await",
+    "prompt": "What is the purpose of await?",
+    "choices": ["Stops code execution", "Waits for a promise to resolve", "Creates a new promise", "Cancels a promise"],
+    "answerIndex": 1,
+    "hint": "Pauses async function execution until a promise is resolved.",
+    "whyWrong": "await pauses the execution of an async function until the promise is resolved and returns its result."
+  },
+  {
+    "id": 57,
+    "topic": "async_await",
+    "prompt": "Can you use await outside an async function?",
+    "choices": ["Yes, always", "No, only inside async functions", "Only in arrow functions", "Only in promise chains"],
+    "answerIndex": 1,
+    "hint": "await can only be used inside async functions.",
+    "whyWrong": "await is only valid inside async functions; using it outside will cause a syntax error."
+  },
+  {
+    "id": 58,
+    "topic": "async_await",
+    "prompt": "What happens if an async function doesn't return a value?",
+    "choices": ["It returns undefined", "It throws an error", "It returns null", "It stops executing"],
+    "answerIndex": 0,
+    "hint": "Async functions implicitly return a resolved promise with undefined.",
+    "whyWrong": "If no return value is specified, an async function returns a promise resolved with undefined."
+  },
+  {
+    "id": 59,
+    "topic": "async_await",
+    "prompt": "How do you handle errors in async/await?",
+    "choices": ["Using throw", "Using return", "Using try/catch", "Using promises"],
+    "answerIndex": 2,
+    "hint": "Use try/catch to handle errors in async functions.",
+    "whyWrong": "try/catch blocks can be used to handle errors in async functions, similar to synchronous code."
+  },
+  {
+    "id": 60,
+    "topic": "async_await",
+    "prompt": "What is Promise.all() used for?",
+    "choices": ["Runs promises sequentially", "Runs promises in parallel", "Cancels all promises", "Creates a new promise"],
+    "answerIndex": 1,
+    "hint": "Waits for all promises in an array to resolve.",
+    "whyWrong": "Promise.all() takes an array of promises and returns a promise that resolves when all input promises resolve."
+  },
+  {
+    "id": 61,
+    "topic": "async_await",
+    "prompt": "Can you use await with non-promise values?",
+    "choices": ["Never", "Always", "Only with async functions", "Yes, they are automatically wrapped"],
+    "answerIndex": 3,
+    "hint": "Non-promise values are automatically wrapped in a resolved promise.",
+    "whyWrong": "await automatically wraps non-promise values in a resolved promise, making them awaitable."
+  },
+  {
+    "id": 62,
+    "topic": "async_await",
+    "prompt": "What is Promise.race()?",
+    "choices": ["Runs the fastest promise", "Runs all promises in parallel", "Cancels slowest promises", "Creates a new promise"],
+    "answerIndex": 0,
+    "hint": "Returns a promise that resolves or rejects as soon as one promise in the array settles.",
+    "whyWrong": "Promise.race() resolves or rejects as soon as one of the promises in the input array settles."
+  },
+  {
+    "id": 63,
+    "topic": "async_await",
+    "prompt": "What does Promise.allSettled() do?",
+    "choices": ["Runs promises in parallel", "Waits for all promises to settle", "Cancels promises", "Runs promises sequentially"],
+    "answerIndex": 1,
+    "hint": "Waits for all promises to settle, regardless of their outcome.",
+    "whyWrong": "Promise.allSettled() returns a promise that resolves after all input promises have settled, showing their status."
+  },
+  {
+    "id": 64,
+    "topic": "apis_event_loop",
+    "prompt": "What is the event loop in JavaScript?",
+    "choices": ["A loop that runs events", "A mechanism for handling asynchronous operations", "A way to create events", "A method to stop code execution"],
+    "answerIndex": 1,
+    "hint": "Manages the execution of multiple chunks of code over time.",
+    "whyWrong": "The event loop allows JavaScript to perform non-blocking I/O operations by offloading operations to the system kernel."
+  },
+  {
+    "id": 65,
+    "topic": "apis_event_loop",
+    "prompt": "What is a callback queue?",
+    "choices": ["A list of function calls", "Stores callbacks waiting to be executed", "A way to prioritize functions", "Cancels function calls"],
+    "answerIndex": 1,
+    "hint": "Holds asynchronous callbacks ready to be processed.",
+    "whyWrong": "The callback queue stores callbacks from events and timers that are waiting to be executed by the event loop."
+  },
+  {
+    "id": 66,
+    "topic": "apis_event_loop",
+    "prompt": "What does setTimeout(0) do?",
+    "choices": ["Stops code execution", "Defers function execution", "Runs function immediately", "Creates an infinite loop"],
+    "answerIndex": 1,
+    "hint": "Schedules a callback to run as soon as possible after the current call stack is empty.",
+    "whyWrong": "setTimeout(0) pushes the callback to the next event loop iteration, allowing other synchronous code to complete first."
+  },
+  {
+    "id": 67,
+    "topic": "apis_event_loop",
+    "prompt": "What is the microtask queue?",
+    "choices": ["A queue for small tasks", "Stores promises and mutation observer callbacks", "A way to prioritize small functions", "Cancels small tasks"],
+    "answerIndex": 1,
+    "hint": "Handles promise resolutions and mutation observer callbacks.",
+    "whyWrong": "The microtask queue processes promise resolutions and mutation observer callbacks before returning to the event loop."
+  },
+  {
+    "id": 68,
+    "topic": "apis_event_loop",
+    "prompt": "What happens in the call stack?",
+    "choices": ["Stores global variables", "Tracks function calls and their execution", "Creates new functions", "Manages event listeners"],
+    "answerIndex": 1,
+    "hint": "Keeps track of function calls and their execution order.",
+    "whyWrong": "The call stack is a data structure that records where in the program we are, tracking function calls and their execution context."
+  },
+  {
+    "id": 69,
+    "topic": "apis_event_loop",
+    "prompt": "What is blocking in JavaScript?",
+    "choices": ["Stopping code execution", "Preventing other code from running", "A way to pause functions", "Creating infinite loops"],
+    "answerIndex": 1,
+    "hint": "Synchronous operations that prevent other code from executing.",
+    "whyWrong": "Blocking occurs when a long-running operation prevents other code from running until it completes."
+  },
+  {
+    "id": 70,
+    "topic": "apis_event_loop",
+    "prompt": "What does requestAnimationFrame() do?",
+    "choices": ["Creates an animation", "Schedules a function call before next repaint", "Stops animations", "Manages CSS animations"],
+    "answerIndex": 1,
+    "hint": "Tells the browser to perform an animation before the next repaint.",
+    "whyWrong": "requestAnimationFrame() schedules a function to be executed before the browser performs the next repaint."
+  },
+  {
+    "id": 71,
+    "topic": "apis_event_loop",
+    "prompt": "What is the difference between macrotask and microtask?",
+    "choices": ["No difference", "Microtasks run before macrotasks", "Macrotasks run before microtasks", "They are the same thing"],
+    "answerIndex": 1,
+    "hint": "Microtasks have higher priority in the event loop.",
+    "whyWrong": "Microtasks (like promise resolutions) are processed before macrotasks (like setTimeout callbacks)."
+  },
+  {
+    "id": 72,
+    "topic": "apis_event_loop",
+    "prompt": "What is an event listener?",
+    "choices": ["A function that creates events", "A function that waits for and responds to events", "A way to stop events", "A method to create callbacks"],
+    "answerIndex": 1,
+    "hint": "Waits for a specific event to occur and then runs a callback.",
+    "whyWrong": "Event listeners are functions that wait for a specific event to occur and then execute a specified callback function."
+  },
+  {
+    "id": 73,
+    "topic": "intro_js",
+    "prompt": "What is JavaScript primarily used for?",
+    "choices": ["Server-side programming", "Desktop application development", "Web interactivity", "Database management"],
+    "answerIndex": 2,
+    "hint": "Adds interactivity and dynamic behavior to web pages.",
+    "whyWrong": "JavaScript is primarily used to create interactive and dynamic content on web pages."
+  },
+  {
+    "id": 74,
+    "topic": "intro_js",
+    "prompt": "What does ECMAScript refer to?",
+    "choices": ["A programming language", "The official specification for JavaScript", "A JavaScript framework", "A browser API"],
+    "answerIndex": 1,
+    "hint": "The standardized specification that JavaScript follows.",
+    "whyWrong": "ECMAScript is the official specification that defines the core features and syntax of JavaScript."
+  },
+  {
+    "id": 75,
+    "topic": "intro_js",
+    "prompt": "What is the difference between let, const, and var?",
+    "choices": ["No difference", "Scoping and mutability rules", "They are used in different contexts", "One is faster than others"],
+    "answerIndex": 1,
+    "hint": "Different scoping and mutability behaviors for variable declarations.",
+    "whyWrong": "let and const have block scope, var has function scope; const prevents reassignment, let allows it."
+  },
+  {
+    "id": 76,
+    "topic": "intro_js",
+    "prompt": "What is type coercion?",
+    "choices": ["Creating new types", "Automatic type conversion", "Stopping type changes", "Defining type constraints"],
+    "answerIndex": 1,
+    "hint": "Automatic conversion between different types.",
+    "whyWrong": "Type coercion is JavaScript's automatic conversion of values from one type to another."
+  },
+  {
+    "id": 77,
+    "topic": "intro_js",
+    "prompt": "What is a JavaScript runtime?",
+    "choices": ["A programming language", "An environment that executes JavaScript", "A type of function", "A browser feature"],
+    "answerIndex": 1,
+    "hint": "The environment where JavaScript code is executed.",
+    "whyWrong": "A JavaScript runtime is an environment (like browsers or Node.js) that provides the necessary tools to execute JavaScript code."
+  },
+  {
+    "id": 78,
+    "topic": "intro_js",
+    "prompt": "What does 'use strict' do?",
+    "choices": ["Enables strict mode", "Disables JavaScript", "Creates a new scope", "Stops code execution"],
+    "answerIndex": 0,
+    "hint": "Enables a stricter parsing and error handling mode.",
+    "whyWrong": "'use strict' enables strict mode, which catches common coding bloopers and prevents some unsafe actions."
+  },
+  {
+    "id": 79,
+    "topic": "intro_js",
+    "prompt": "What is a JavaScript module?",
+    "choices": ["A complete application", "A file containing reusable code", "A type of function", "A browser API"],
+    "answerIndex": 1,
+    "hint": "A file containing reusable JavaScript code that can be imported.",
+    "whyWrong": "A module is a file containing JavaScript code that can be imported and exported between different files."
+  },
+  {
+    "id": 80,
+    "topic": "intro_js",
+    "prompt": "What is destructuring in JavaScript?",
+    "choices": ["Deleting variables", "Extracting values from arrays or objects", "Creating new objects", "Stopping code execution"],
+    "answerIndex": 1,
+    "hint": "A way to extract values from arrays or properties from objects.",
+    "whyWrong": "Destructuring allows unpacking values from arrays or properties from objects into distinct variables."
+  }
+]

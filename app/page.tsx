@@ -1,103 +1,92 @@
-import Image from "next/image";
+'use client';
+
+import { supabase, hasSupabase } from '@/lib/supabaseClient';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const router = useRouter();
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    const checkSession = async () => {
+      if (!hasSupabase) return;
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsSignedIn(!!session?.user);
+    };
+    checkSession();
+
+    const { data: sub } = supabase?.auth.onAuthStateChange((_event, session) => {
+      setIsSignedIn(!!session?.user);
+    });
+
+    return () => {
+      sub?.subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleDemoMode = () => {
+    localStorage.setItem('demo-mode', 'true');
+    window.dispatchEvent(new Event('demo-changed'));
+    router.push('/topics');
+  };
+
+  const handleSignIn = async () => {
+    if (!hasSupabase) return;
+    await supabase.auth.signInWithOAuth({
+      provider: 'github',
+      options: { redirectTo: window.location.origin }
+    });
+  };
+
+  return (
+    <main className="min-h-[calc(100vh-56px)] flex items-center justify-center px-4 sm:px-6">
+      <section className="bg-white/80 backdrop-blur-md shadow-xl rounded-2xl p-8 sm:p-10 max-w-3xl w-full text-center space-y-8">
+        <h1 className="text-5xl sm:text-6xl font-extrabold text-gray-900">
+          <span className="underline-dojo">Welcome to JS Sensei</span>
+        </h1>
+
+        <p className="text-lg sm:text-xl text-gray-800 leading-loose">
+          Train your JavaScript fundamentals in our interactive dojo.<br />
+          Level up from white belt to black belt with practice quizzes, flashcards,<br />
+          and one on one tutelage from our AI Sensei!
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {isSignedIn ? (
+            <Link href="/topics" className="btn btn-primary">
+              Go to Topics
+            </Link>
+          ) : (
+            <>
+              <button 
+                onClick={handleDemoMode} 
+                className="btn btn-ghost"
+              >
+                Use Demo
+              </button>
+              {hasSupabase && (
+                <button 
+                  onClick={handleSignIn} 
+                  className="btn btn-primary"
+                >
+                  Sign in with GitHub
+                </button>
+              )}
+            </>
+          )}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        
+        {!isSignedIn && (
+          <Link 
+            href="/topics" 
+            className="text-sm text-gray-600 underline hover:text-gray-900"
+          >
+            Explore topics without an account
+          </Link>
+        )}
+      </section>
+    </main>
   );
 }
