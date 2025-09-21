@@ -113,19 +113,19 @@ git clone <https://github.com/your-username/js-sensei.git>
 cd js-sensei/web
 ```
 
-1. install dependencies
+2. install dependencies
 
 ```
 npm install
 ```
 
-1. copy env file and fill it
+3. copy env file and fill it
 
 ```
 cp .env.local.example .env.local
 ```
 
-1. run dev server
+4. run dev server
 
 ```
 npm run dev
