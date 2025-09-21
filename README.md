@@ -19,11 +19,14 @@ Level up from white belt to black belt with practice quizzes, flashcards, and on
 
 ## 🛠 Tech Stack
 
-- [Next.js 14 (App Router)](https://nextjs.org/) + TypeScript
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Supabase](https://supabase.com/) (Auth + Postgres for XP/Belts)
-- Google Gemini API (AI hints + tutor)
-- [Vercel](https://vercel.com/) (hosting & deployment)
+- Front End:
+  - [Next.js 14 (App Router)](https://nextjs.org/) + TypeScript
+  - [Tailwind CSS](https://tailwindcss.com/)
+- Back End:
+  - [Supabase](https://supabase.com/) (Auth + Postgres for XP/Belts)
+  - Google Gemini API (AI Integrated Learning Hints + Tutor)
+- Deployment/DevOps:
+  - [Vercel](https://vercel.com/) (hosting & deployment)
 
 ---
 
