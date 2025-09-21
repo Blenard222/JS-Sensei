@@ -11,7 +11,7 @@ Level up from white belt to black belt with practice quizzes, flashcards, and on
 
 ## 🚀 Live Demo
 
-[**View Live App on Vercel**](https://your-vercel-url.vercel.app/)
+[**View Live App on Vercel**](https://js-sensei.vercel.app/)
 
 *(Demo mode available — explore topics without an account!)*
 
