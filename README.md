@@ -17,33 +17,6 @@ Level up from white belt to black belt with practice quizzes, flashcards, and on
 
 ---
 
-## ✨ Features
-
-- **Topic Coverage**
-    - Variables & Types
-    - Arrays & Objects
-    - Loops & Conditionals
-    - Functions
-    - Must-Know Methods (map, filter, reduce)
-    - Async/Await
-    - APIs & Event Loop
-    - JS Intro
-- **Diagnostic Test** → Quickly find your weakest topic
-- **Learn Pages**
-    - Explanations, code examples
-    - “Show Hint” and “Explain Differently” buttons
-    - Ask Tutor — AI-powered Q&A
-- **Quizzes** → Per-topic multiple choice, mastery tracking
-- **Flashcards** → Review built-in cards or add your own (+XP)
-- **Gamification**
-    - XP system with belt ranks (🥋 White → Black)
-    - Toast notifications on actions (e.g., +20 XP for adding flashcards)
-- **Authentication**
-    - GitHub sign-in with Supabase
-    - Demo mode (no account needed)
-
----
-
 ## 🛠 Tech Stack
 
 - [Next.js 14 (App Router)](https://nextjs.org/) + TypeScript
@@ -75,6 +48,33 @@ Level up from white belt to black belt with practice quizzes, flashcards, and on
   <img src="https://github.com/CodingWCal/JS-Sensei/blob/main/JS-SENSEI-QUIZ.png" width="650" alt="JS Sensei Quiz"/>
   <br/><em>Quiz Page</em>
 </p>
+
+---
+
+## ✨ Features
+
+- **Learning Topic Coverage**
+    - Variables & Types
+    - Arrays & Objects
+    - Loops & Conditionals
+    - Functions
+    - Must-Know Methods (map, filter, reduce)
+    - Async/Await
+    - APIs & Event Loop
+    - JS Intro
+- **Diagnostic Test** → Quickly find your weakest topic
+- **Learn Pages**
+    - Explanations, code examples
+    - “Show Hint” and “Explain Differently” buttons
+    - Ask Tutor — AI-powered Q&A
+- **Quizzes** → Per-topic multiple choice, mastery tracking
+- **Flashcards** → Review built-in cards or add your own (+XP)
+- **Gamification**
+    - XP system with belt ranks (🥋 White → Black)
+    - Toast notifications on actions (e.g., +20 XP for adding flashcards)
+- **Authentication**
+    - GitHub sign-in with Supabase
+    - Demo mode (no account needed)
 
 ---
 
