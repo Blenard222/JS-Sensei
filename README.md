@@ -13,7 +13,7 @@ Level up from white belt to black belt with practice quizzes, flashcards, and on
 
 [**View Live App on Vercel**](https://js-sensei.vercel.app/)
 
-*(Demo mode available — explore topics without an account!)*
+*(Signin with Github + Demo mode available — explore topics without an account!)*
 
 ---
 
