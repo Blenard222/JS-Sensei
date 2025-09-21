@@ -58,33 +58,39 @@ Level up from white belt to black belt with practice quizzes, flashcards, and on
 
 ## 🏗 Project Structure
 web/
-app/
-page.tsx # Landing page
-topics/page.tsx # Topics overview
-learn/page.tsx # Learn view (AI + hints)
-quiz/page.tsx # Quiz view
-flashcards/page.tsx # Flashcards (browse + add)
-api/hint/route.ts # AI hint endpoint
-data/questions.json
-lib/ # helpers for scoring/mastery
-styles/globals.css
-
+├── app/                   # Next.js App Router pages
+│   ├── page.tsx           # Landing page
+│   ├── topics/            # Topics overview
+│   ├── learn/             # Learn page with AI tutor + hints
+│   ├── quiz/              # Quiz pages
+│   ├── flashcards/        # Flashcards (browse + add)
+│   └── api/               # API routes (e.g., /api/hint)
+├── components/            # React components (Navbar, DemoMode, AuthButtons, etc.)
+├── hooks/                 # Custom React hooks (e.g., useLocalMastery)
+├── lib/                   # Utility functions (score.ts, mastery.ts, supabaseClient.ts)
+├── data/                  # Static data (questions.json)
+├── public/                # Static assets (dojo.jpg, screenshots, icons)
+├── styles/                # Global styles (globals.css, Tailwind config)
+├── __tests__/             # Vitest test files
+├── package.json
+├── tsconfig.json
+└── README.md
 
 ---
 
 ## ⚙️ Local Development
 
-# clone repo
+1. clone repo
 git clone https://github.com/your-username/js-sensei.git
 cd js-sensei/web
 
-# install deps
+2. install dependencies
 npm install
 
-# copy env file and fill it
+3. copy env file and fill it
 cp .env.local.example .env.local
 
-# run dev server
+4. run dev server
 npm run dev
 
 ## 🔑 Environment Variables
