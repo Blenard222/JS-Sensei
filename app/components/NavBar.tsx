@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { supabase, hasSupabase } from '@/lib/supabaseClient';
-import { getPoints, beltFor, loadPointsFromSupabase } from '@/lib/points';
+import { getPoints, beltFor, syncPointsFromDB } from '@/lib/points';
 import AuthButtons from '@/app/components/AuthButtons';
 
 const links = [
@@ -87,7 +87,7 @@ export default function NavBar() {
 
         if (signedIn) {
           // Prefer Supabase points, fallback to localStorage
-          const supabasePoints = await loadPointsFromSupabase();
+          const supabasePoints = await syncPointsFromDB();
           
           // If Supabase points are null, use localStorage
           const p = supabasePoints ?? getPoints();
@@ -106,7 +106,7 @@ export default function NavBar() {
           setEmail(sess?.user?.email ?? null);
 
           if (nowSignedIn) {
-            const supabasePoints = await loadPointsFromSupabase();
+            const supabasePoints = await syncPointsFromDB();
             const p = supabasePoints ?? getPoints();
             setPts(p);
             setBelt(beltFor(p));
