@@ -127,10 +127,10 @@ Redeploy and enjoy 🎉
 
 ## 📌 Roadmap & Future Updates
 
-- [x] Progress bar for XP → next belt
-- [x] Confetti on belt rank-up
-- [x] Streaks and daily challenges
-- [x] Dark mode dojo theme
-- [x] PWA support
+- [] Progress bar for XP → next belt
+- [] Confetti on belt rank-up
+- [] Streaks and daily challenges
+- [] Dark mode dojo theme
+- [] PWA support
 
 ## 📄 License: MIT
