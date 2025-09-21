@@ -31,7 +31,7 @@ Level up from white belt to black belt with practice quizzes, flashcards, and on
 
 <p align="center">
   <img src="https://github.com/CodingWCal/JS-Sensei/blob/main/JS-SENSEI-LANDINGPAGE.png" width="650" alt="JS Sensei Landing"/>
-  <br/><em>Landing Page + Signin with Github</em>
+  <br/><em>Landing Page + Sign In with Github</em>
 </p>
 
 <p align="center">
