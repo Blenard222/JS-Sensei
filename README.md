@@ -113,24 +113,24 @@ For GitHub sign-in, callback URL must be:
 
 ## 🚀 Deployment
 
-Push repo to GitHub.
-Import into Vercel.
-Root Directory: web
-Framework: Next.js
-Add env vars (same as .env.local).
+- Push repo to GitHub.
+- Import into Vercel.
+- Root Directory: web
+- Framework: Next.js
+- Add env vars (same as .env.local).
 
 After first deploy:
-Add production URL to Supabase Auth settings.
-Update NEXT_PUBLIC_SITE_URL to the production domain in Vercel settings.
+- Add production URL to Supabase Auth settings.
+- Update NEXT_PUBLIC_SITE_URL to the production domain in Vercel settings.
 
 Redeploy and enjoy 🎉
 
 ## 📌 Roadmap & Future Updates
 
-- [] Progress bar for XP → next belt
-- [] Confetti on belt rank-up
-- [] Streaks and daily challenges
-- [] Dark mode dojo theme
-- [] PWA support
+- [ ] Progress bar for XP → next belt
+- [ ] Confetti on belt rank-up
+- [ ] Streaks and daily challenges
+- [ ] Dark mode dojo theme
+- [ ] PWA support
 
 ## 📄 License: MIT
