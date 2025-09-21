@@ -1,99 +1,87 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase, hasSupabase } from '@/lib/supabaseClient';
+import { loadPointsFromSupabase } from '@/lib/points';
 
-type Props = { showSignIn?: boolean };
-
-export default function AuthButtons({ showSignIn = true }: Props) {
-  // Hooks must be called unconditionally at the top:
+export default function AuthButtons({ showSignIn = true }: { showSignIn?: boolean }) {
   const [email, setEmail] = useState<string | null>(null);
-  const [ready, setReady] = useState<boolean>(false);
+  const [canUseSupabase, setCanUseSupabase] = useState(false);
 
   useEffect(() => {
-    // If Supabase isn't configured, just mark ready so render can return null safely
-    if (!hasSupabase || !supabase) {
-      setReady(true);
-      return;
-    }
+    const checkSupabase = async () => {
+      setCanUseSupabase(hasSupabase && !!supabase);
 
-    const loadUserAndPoints = async () => {
-      const { data } = await supabase.auth.getUser();
-      const user = data.user ?? null;
+      if (!hasSupabase || !supabase) return;
+
+      const { data: { user } } = await supabase.auth.getUser();
       setEmail(user?.email ?? null);
 
+      // Load points if user exists
       if (user) {
-        try {
-          const { data: prof } = await supabase
-            .from('profiles')
-            .select('points')
-            .eq('id', user.id)
-            .single();
-
-          const pts = Number(prof?.points ?? 0);
-          localStorage.setItem('points', String(pts));
-          window.dispatchEvent(
-            new CustomEvent('points-changed', { detail: { points: pts } })
-          );
-        } catch {
-          // ignore; keep UI responsive
-        }
+        await loadPointsFromSupabase();
       }
-      setReady(true);
     };
 
-    loadUserAndPoints();
+    checkSupabase();
 
-    const { data: sub } = supabase.auth.onAuthStateChange(async (_evt, session) => {
-      const user = session?.user ?? null;
-      setEmail(user?.email ?? null);
+    if (supabase) {
+      const { data } = supabase.auth.onAuthStateChange(async (_event, session) => {
+        const user = session?.user;
+        setEmail(user?.email ?? null);
 
-      if (user) {
-        try {
-          const { data: prof } = await supabase
-            .from('profiles')
-            .select('points')
-            .eq('id', user.id)
-            .single();
-          const pts = Number(prof?.points ?? 0);
-          localStorage.setItem('points', String(pts));
-          window.dispatchEvent(
-            new CustomEvent('points-changed', { detail: { points: pts } })
-          );
-        } catch {
-          // ignore
+        // Load points on first sign-in
+        if (user) {
+          await loadPointsFromSupabase();
         }
-      } else {
-        // signed out: clear local state
-        localStorage.removeItem('points');
-        localStorage.removeItem('mastery');
-        window.dispatchEvent(
-          new CustomEvent('points-changed', { detail: { points: 0 } })
-          );
-      }
-    });
+      });
 
-    return () => sub?.subscription?.unsubscribe();
+      return () => {
+        data.subscription.unsubscribe();
+      };
+    }
+
+    return () => {};
   }, []);
 
-  // Render gates AFTER hooks:
-  if (!hasSupabase || !supabase) return null;
-  if (!ready) return null;
+  const handleSignIn = async () => {
+    if (!canUseSupabase || !supabase) return;
+
+    await supabase.auth.signInWithOAuth({
+      provider: 'github',
+      options: { redirectTo: window.location.origin }
+    });
+  };
+
+  const handleSignOut = async () => {
+    if (!canUseSupabase || !supabase) return;
+
+    await supabase.auth.signOut();
+
+    // Clear points and mastery on sign-out
+    localStorage.removeItem('points');
+    localStorage.removeItem('mastery');
+
+    // Dispatch points change event
+    window.dispatchEvent(new CustomEvent('points-changed', {
+      detail: { points: 0 }
+    }));
+  };
+
+  if (!canUseSupabase) return null;
 
   if (email) {
     return (
-      <div className="flex items-center gap-2 max-w-full">
-        <span
-          className="hidden sm:inline text-sm text-gray-700 max-w-[200px] md:max-w-[260px] whitespace-nowrap overflow-hidden text-ellipsis"
+      <div className="flex items-center gap-2">
+        <span 
+          className="hidden sm:inline text-sm text-gray-700 max-w-[200px] md:max-w-[260px] whitespace-nowrap overflow-hidden text-ellipsis" 
           title={email}
         >
           User: {email}
         </span>
-        <button
-          className="btn btn-ghost whitespace-nowrap"
-          onClick={async () => {
-            await supabase.auth.signOut();
-          }}
+        <button 
+          className="btn btn-ghost whitespace-nowrap" 
+          onClick={handleSignOut}
         >
           Sign out
         </button>
@@ -101,19 +89,12 @@ export default function AuthButtons({ showSignIn = true }: Props) {
     );
   }
 
-  if (!showSignIn) return null;
-
-  return (
-    <button
-      className="btn whitespace-nowrap"
-      onClick={() =>
-        supabase!.auth.signInWithOAuth({
-          provider: 'github',
-          options: { redirectTo: window.location.origin },
-        })
-      }
+  return showSignIn ? (
+    <button 
+      className="btn" 
+      onClick={handleSignIn}
     >
       Sign in with GitHub
     </button>
-  );
+  ) : null;
 }

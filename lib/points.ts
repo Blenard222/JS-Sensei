@@ -1,5 +1,15 @@
+// lib/points.ts
+
 export type Belt =
-  | 'White' | 'Yellow' | 'Orange' | 'Green' | 'Blue' | 'Purple' | 'Brown' | 'Red' | 'Black';
+  | 'White'
+  | 'Yellow'
+  | 'Orange'
+  | 'Green'
+  | 'Blue'
+  | 'Purple'
+  | 'Brown'
+  | 'Red'
+  | 'Black';
 
 export function beltFor(points: number): Belt {
   if (points >= 500) return 'Black';
@@ -7,74 +17,105 @@ export function beltFor(points: number): Belt {
   if (points >= 250) return 'Brown';
   if (points >= 180) return 'Purple';
   if (points >= 130) return 'Blue';
-  if (points >= 90)  return 'Green';
-  if (points >= 60)  return 'Orange';
-  if (points >= 30)  return 'Yellow';
+  if (points >= 90) return 'Green';
+  if (points >= 60) return 'Orange';
+  if (points >= 30) return 'Yellow';
   return 'White';
 }
 
 export function getPoints(): number {
-  const raw = typeof window !== 'undefined' ? localStorage.getItem('points') : null;
+  if (typeof window === 'undefined') return 0;
+  const raw = localStorage.getItem('points');
   const n = raw ? Number(raw) : 0;
   return Number.isFinite(n) ? n : 0;
 }
 
-async function syncSupabase(points: number) {
-  const { supabase } = await import('@/lib/supabaseClient').catch(() => ({ supabase: null }));
-  if (!supabase) return;
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return;
-  await supabase.from('profiles').upsert({ id: user.id, points }, { onConflict: 'id' });
+type SupabaseClient = {
+  auth: {
+    getUser: () => Promise<{ data: { user: { id: string } | null } }>;
+    signOut: () => Promise<void>;
+  };
+  from: (table: string) => {
+    upsert: (data: { id: string; points: number }, options: { onConflict: string }) => Promise<{ error?: Error }>;
+    select: (columns: '*' | string | string[]) => {
+      eq: (column: string, value: string) => {
+        maybeSingle: () => Promise<{ data: { points?: number } | null; error?: Error }>;
+      }
+    }
+  }
+};
+
+async function syncPointsToSupabase(points: number): Promise<void> {
+  try {
+    const { supabase, hasSupabase } = await import('./supabaseClient').catch(() => ({
+      supabase: null as SupabaseClient | null,
+      hasSupabase: false,
+    }));
+    if (!hasSupabase || !supabase) return;
+
+    const { data: userRes } = await supabase.auth.getUser();
+    const user = userRes?.user;
+    if (!user) return;
+
+    await supabase
+      .from('profiles')
+      .upsert({ id: user.id, points }, { onConflict: 'id' });
+  } catch {
+    // no-op
+  }
 }
 
 export async function addPoints(n: number): Promise<number> {
-  const next = Math.max(0, getPoints() + n);
+  const curr = getPoints();
+  const next = Math.max(0, curr + n);
+
   if (typeof window !== 'undefined') {
     localStorage.setItem('points', String(next));
-    window.dispatchEvent(new CustomEvent('points-changed', { detail: { points: next } }));
+    window.dispatchEvent(
+      new CustomEvent('points-changed', { detail: { points: next } })
+    );
   }
-  await syncSupabase(next);
+
+  await syncPointsToSupabase(next);
   return next;
 }
 
 export async function loadPointsFromSupabase(): Promise<number | null> {
   try {
-    const { supabase } = await import('@/lib/supabaseClient').catch(() => ({ supabase: null }));
-    if (!supabase) return null;
-    const { data: { user } } = await supabase.auth.getUser();
+    const { supabase, hasSupabase } = await import('./supabaseClient').catch(() => ({
+      supabase: null as SupabaseClient | null,
+      hasSupabase: false,
+    }));
+    if (!hasSupabase || !supabase) return null;
+
+    const { data: userRes } = await supabase.auth.getUser();
+    const user = userRes?.user;
     if (!user) return null;
 
-    // Fetch points, upsert if no row exists
     const { data, error } = await supabase
-    .from('profiles')
-    .select('points')
-    .eq('id', userId)
-    .maybeSingle();
-  
-  if (error) {
-    console.error(error);
-  }
-  
-  // normalize to a local points number without reassigning `data`
-  let currentPoints = Number((data as { points?: number } | null)?.points ?? 0);
-  
-  if (!data) {
-    // if you truly need to ensure a row exists, you can upsert here:
-    // await supabase.from('profiles').upsert({ id: userId, points: 0 });
-    currentPoints = 0;
-  }
-  
-  const pts = currentPoints;
-  
-    
-    // Always mirror to localStorage and dispatch event
+      .from('profiles')
+      .select('points')
+      .eq('id', user.id)
+      .maybeSingle();
+
+    let pts = 0;
+
+    if (error || !data) {
+      await supabase
+        .from('profiles')
+        .upsert({ id: user.id, points: 0 }, { onConflict: 'id' });
+      pts = 0;
+    } else {
+      pts = Number(data.points ?? 0);
+    }
+
     if (typeof window !== 'undefined') {
       localStorage.setItem('points', String(pts));
-      window.dispatchEvent(new CustomEvent('points-changed', { 
-        detail: { points: pts } 
-      }));
+      window.dispatchEvent(
+        new CustomEvent('points-changed', { detail: { points: pts } })
+      );
     }
-    
+
     return pts;
   } catch {
     return null;

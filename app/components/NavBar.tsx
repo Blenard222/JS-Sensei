@@ -1,41 +1,21 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { supabase, hasSupabase } from '@/lib/supabaseClient';
-import { getPoints, beltFor, syncPointsFromDB } from '@/lib/points';
-import AuthButtons from '@/app/components/AuthButtons';
+import { getPoints, beltFor, loadPointsFromSupabase } from '@/lib/points';
 
-const links = [
-  { href: '/topics', label: 'Topics' },
-  { href: '/diagnostic', label: 'Diagnostic' },
-  { href: '/flashcards?topic=variables_types', label: 'Flashcards' },
-];
-
-// Belt abbreviation helpers
-const BELT_SHORT: Record<string, string> = {
-  White: 'W',
-  Yellow: 'Y',
-  Orange: 'O',
-  Green: 'G',
-  Blue: 'B',
-  Purple: 'P',
-  Brown: 'Br',
-  Red: 'R',
-  Black: 'Bk',
+// Helper functions for belt display
+const BELT_SHORT: Record<string, string> = { 
+  White: 'W', Yellow: 'Y', Green: 'G', Blue: 'B', 
+  Brown: 'Br', Black: 'Bk' 
 };
 
-const BELT_COLOR: Record<string, string> = {
-  White: 'text-gray-700',
-  Yellow: 'text-yellow-500',
-  Orange: 'text-orange-500',
-  Green: 'text-green-500',
-  Blue: 'text-blue-500',
-  Purple: 'text-purple-500',
-  Brown: 'text-amber-700',
-  Red: 'text-red-500',
-  Black: 'text-black',
+const BELT_COLOR: Record<string, string> = { 
+  White: 'text-gray-700', Yellow: 'text-yellow-500', 
+  Green: 'text-green-500', Blue: 'text-blue-500', 
+  Brown: 'text-amber-700', Black: 'text-black' 
 };
 
 function shortBelt(label: string) {
@@ -53,23 +33,29 @@ function avatarFromEmail(email?: string | null) {
 
 export default function NavBar() {
   const pathname = usePathname();
-
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [email, setEmail] = useState<string | null>(null);
   const [pts, setPts] = useState(0);
   const [belt, setBelt] = useState('White');
 
+  function navClass(href: string) {
+    const base = "px-3 py-1 text-sm rounded-full hover:bg-gray-100 whitespace-nowrap";
+    const active = "text-red-600 font-semibold";
+    const inactive = "text-gray-700";
+    return `${base} ${pathname.startsWith(href) ? active : inactive}`;
+  }
+
   const handleSignOut = async () => {
     if (!hasSupabase || !supabase) return;
     await supabase.auth.signOut();
-    
+
     // Clear points and mastery on sign-out
     localStorage.removeItem('points');
     localStorage.removeItem('mastery');
-    
+
     // Dispatch points change event
-    window.dispatchEvent(new CustomEvent('points-changed', { 
-      detail: { points: 0 } 
+    window.dispatchEvent(new CustomEvent('points-changed', {
+      detail: { points: 0 }
     }));
   };
 
@@ -86,18 +72,7 @@ export default function NavBar() {
         setEmail(session?.user?.email ?? null);
 
         if (signedIn) {
-          // Prefer Supabase points, fallback to localStorage
-          const supabasePoints = await syncPointsFromDB();
-          
-          // If Supabase points are null, use localStorage
-          const p = supabasePoints ?? getPoints();
-          setPts(p);
-          setBelt(beltFor(p));
-        } else {
-          // Fallback to localStorage for unsigned users
-          const p = getPoints();
-          setPts(p);
-          setBelt(beltFor(p));
+          await loadPointsFromSupabase(); // hydrate points into localStorage + event
         }
 
         const { data: sub } = supabase.auth.onAuthStateChange(async (evt, sess) => {
@@ -106,26 +81,21 @@ export default function NavBar() {
           setEmail(sess?.user?.email ?? null);
 
           if (nowSignedIn) {
-            const supabasePoints = await syncPointsFromDB();
-            const p = supabasePoints ?? getPoints();
-            setPts(p);
-            setBelt(beltFor(p));
+            await loadPointsFromSupabase();
           } else {
             if (typeof window !== 'undefined') {
               localStorage.removeItem('points');
               window.dispatchEvent(new CustomEvent('points-changed', { detail: { points: 0 } }));
             }
-            setPts(0);
-            setBelt('White');
           }
         });
         unsubscribe = () => sub?.subscription?.unsubscribe();
-      } else {
-        // Fallback if Supabase is not available
-        const p = getPoints();
-        setPts(p);
-        setBelt(beltFor(p));
       }
+
+      // still initialize local points to show something until Supabase loads
+      const p = getPoints();
+      setPts(p);
+      setBelt(beltFor(p));
     })();
 
     function onPoints(e: Event) {
@@ -143,13 +113,6 @@ export default function NavBar() {
       unsubscribe?.();
     };
   }, []);
-
-  function navClass(href: string) {
-    const base = "px-3 py-1 text-sm rounded-full hover:bg-gray-100 whitespace-nowrap";
-    const active = "text-red-600 font-semibold";
-    const inactive = "text-gray-700";
-    return `${base} ${pathname.startsWith(href) ? active : inactive}`;
-  }
 
   return (
     <header className="sticky top-0 z-20 bg-white/90 backdrop-blur border-b">
