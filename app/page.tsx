@@ -10,20 +10,28 @@ export default function Home() {
   const [isSignedIn, setIsSignedIn] = useState(false);
 
   useEffect(() => {
-    const checkSession = async () => {
-      if (!hasSupabase) return;
-      const { data: { session } } = await supabase.auth.getSession();
-      setIsSignedIn(!!session?.user);
-    };
-    checkSession();
+    let unsub: { subscription: { unsubscribe: () => void } } | null = null;
 
-    const { data: sub } = supabase?.auth.onAuthStateChange((_event, session) => {
-      setIsSignedIn(!!session?.user);
-    });
+    const run = async () => {
+      // Guard: if Supabase isn’t configured, treat as signed out
+      if (!hasSupabase || !supabase) {
+        setIsSignedIn(false);
+        return;
+      }
 
-    return () => {
-      sub?.subscription.unsubscribe();
+      const client = supabase!; // non-null after guard
+
+      const { data: { session } } = await client.auth.getSession();
+      setIsSignedIn(!!session?.user);
+
+      const { data } = client.auth.onAuthStateChange((_event, session) => {
+        setIsSignedIn(!!session?.user);
+      });
+      unsub = data;
     };
+
+    run();
+    return () => unsub?.subscription?.unsubscribe();
   }, []);
 
   const handleDemoMode = () => {
@@ -33,8 +41,10 @@ export default function Home() {
   };
 
   const handleSignIn = async () => {
-    if (!hasSupabase) return;
-    await supabase.auth.signInWithOAuth({
+    if (!hasSupabase || !supabase) return;
+    const client = supabase!; // safe after guard
+
+    await client.auth.signInWithOAuth({
       provider: 'github',
       options: { redirectTo: window.location.origin }
     });
@@ -60,15 +70,15 @@ export default function Home() {
             </Link>
           ) : (
             <>
-              <button 
-                onClick={handleDemoMode} 
+              <button
+                onClick={handleDemoMode}
                 className="btn btn-ghost"
               >
                 Use Demo
               </button>
               {hasSupabase && (
-                <button 
-                  onClick={handleSignIn} 
+                <button
+                  onClick={handleSignIn}
                   className="btn btn-primary"
                 >
                   Sign in with GitHub
@@ -77,10 +87,10 @@ export default function Home() {
             </>
           )}
         </div>
-        
+
         {!isSignedIn && (
-          <Link 
-            href="/topics" 
+          <Link
+            href="/topics"
             className="text-sm text-gray-600 underline hover:text-gray-900"
           >
             Explore topics without an account
