@@ -1,5 +1,10 @@
-// /app/api/hint/route.ts
 import { NextResponse } from 'next/server';
+
+type HintBody = {
+  topic?: string;
+  prompt?: string;
+  wrongChoice?: string | null;
+};
 
 const FALLBACK_HINTS: Record<string, string> = {
   variables_types:
@@ -21,37 +26,33 @@ const FALLBACK_HINTS: Record<string, string> = {
 };
 
 export async function POST(req: Request) {
-  let body: any = {};
+  let body: HintBody = {};
   try {
-    body = await req.json();
+    body = (await req.json()) as HintBody;
   } catch {
-    // ignore bad JSON; fall back below
+    /* ignore */
   }
 
-  const t = typeof body?.topic === 'string' ? body.topic : 'variables_types';
+  const t = typeof body.topic === 'string' ? body.topic : 'variables_types';
   const userPrompt =
-    typeof body?.prompt === 'string' && body.prompt.trim().length > 0
+    typeof body.prompt === 'string' && body.prompt.trim().length > 0
       ? body.prompt.trim()
       : 'Explain this topic simply with a kid-friendly analogy and one short code example.';
-  const wrongChoice =
-    typeof body?.wrongChoice === 'string' ? body.wrongChoice : null;
+  const wrongChoice = typeof body.wrongChoice === 'string' ? body.wrongChoice : null;
 
-  // If no key present, or you want to keep it simple, return fallback
   const geminiKey = process.env.GEMINI_API_KEY;
 
   if (!geminiKey) {
     return NextResponse.json(
       {
         hint:
-          (wrongChoice
-            ? `Think about why "${wrongChoice}" doesn’t match the concept. `
-            : '') + (FALLBACK_HINTS[t] || FALLBACK_HINTS.variables_types),
+          (wrongChoice ? `Think about why "${wrongChoice}" doesn’t match the concept. ` : '') +
+          (FALLBACK_HINTS[t] || FALLBACK_HINTS.variables_types),
       },
       { status: 200 }
     );
   }
 
-  // --- Gemini (non-streaming) ---
   try {
     const prompt = [
       'You are JS Sensei, a patient JavaScript tutor.',
@@ -69,9 +70,7 @@ export async function POST(req: Request) {
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-        }),
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
       }
     );
 
@@ -88,9 +87,8 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         hint:
-          (wrongChoice
-            ? `Think about why "${wrongChoice}" doesn’t match the concept. `
-            : '') + (FALLBACK_HINTS[t] || FALLBACK_HINTS.variables_types),
+          (wrongChoice ? `Think about why "${wrongChoice}" doesn’t match the concept. ` : '') +
+          (FALLBACK_HINTS[t] || FALLBACK_HINTS.variables_types),
       },
       { status: 200 }
     );

@@ -46,24 +46,22 @@ export async function loadPointsFromSupabase(): Promise<number | null> {
 
     // Fetch points, upsert if no row exists
     const { data, error } = await supabase
-      .from('profiles')
-      .select('points')
-      .eq('id', user.id)
-      .single();
-
-    // If no row exists, upsert with 0 points
-    if (error) {
-      const { error: upsertError } = await supabase
-        .from('profiles')
-        .upsert({ id: user.id, points: 0 }, { onConflict: 'id' });
-      
-      if (upsertError) return null;
-      
-      // After upsert, set points to 0
-      data = { points: 0 };
-    }
-
-    const pts = Number(data?.points ?? 0);
+    .from('profiles')
+    .select('points')
+    .eq('id', userId)
+    .maybeSingle();
+  
+  // normalize to a local points number without reassigning `data`
+  let currentPoints = Number((data as { points?: number } | null)?.points ?? 0);
+  
+  if (!data) {
+    // if you truly need to ensure a row exists, you can upsert here:
+    // await supabase.from('profiles').upsert({ id: userId, points: 0 });
+    currentPoints = 0;
+  }
+  
+  const pts = currentPoints;
+  
     
     // Always mirror to localStorage and dispatch event
     if (typeof window !== 'undefined') {
