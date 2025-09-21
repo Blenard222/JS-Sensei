@@ -51,6 +51,10 @@ export async function loadPointsFromSupabase(): Promise<number | null> {
     .eq('id', userId)
     .maybeSingle();
   
+  if (error) {
+    console.error(error);
+  }
+  
   // normalize to a local points number without reassigning `data`
   let currentPoints = Number((data as { points?: number } | null)?.points ?? 0);
   

@@ -153,7 +153,9 @@ export default function Learn() {
       </section>
 
       <section className="card space-y-3">
-        <label className="font-semibold"> {"Sensei's Wisdom:"}</label>
+        <label className="font-semibold"> 
+          Sensei&apos;s Wisdom:
+          </label>
         <textarea
           className="w-full rounded-xl border border-gray-300 px-3 py-2"
           value={userQ}
