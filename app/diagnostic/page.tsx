@@ -119,10 +119,10 @@ export default function Diagnostic() {
         </div>
       ) : (
         <section className="card space-y-4 text-center">
-          <p className="text-gray-900">
-            You're strongest in {strongest.replace('_', ' ')}; 
-            let's focus on {weakest.replace('_', ' ')}.
-          </p>
+        <p className="text-gray-900">
+        {"You're strongest in "}{strongest.replace('_', ' ')}{"; let's focus on "}{weakest.replace('_', ' ')}.
+        </p>
+
           <Link 
             href={`/learn?topic=${weakest}`} 
             className="btn btn-primary"

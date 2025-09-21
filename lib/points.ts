@@ -45,7 +45,7 @@ export async function loadPointsFromSupabase(): Promise<number | null> {
     if (!user) return null;
 
     // Fetch points, upsert if no row exists
-    let { data, error } = await supabase
+    const { data, error } = await supabase
       .from('profiles')
       .select('points')
       .eq('id', user.id)

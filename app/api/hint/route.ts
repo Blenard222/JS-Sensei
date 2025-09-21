@@ -1,58 +1,98 @@
-import { NextRequest, NextResponse } from 'next/server';
+// /app/api/hint/route.ts
+import { NextResponse } from 'next/server';
 
-// Deterministic fallback hints for each topic
 const FALLBACK_HINTS: Record<string, string> = {
-  variables_types: `Variables are like labeled boxes where you store different types of information. Think of them as containers that can hold numbers, text, or other data. Each container has a unique name so you can easily find and use what's inside.`,
-  arrays_objects: `Arrays are like lists of items, and objects are like labeled containers with multiple compartments. Imagine an array as a train with many cars, and an object as a toolbox with labeled drawers.`,
-  loops_conditionals: `Loops help you repeat actions, like a robot following steps over and over. Conditionals are decision points—like traffic lights—that choose which path the code takes based on a condition.`,
-  functions: `Functions are like special recipes that do a specific job. You can create a function that takes ingredients (inputs), follows a set of steps, and serves up a result (output).`,
-  methods_core: `Methods are like built-in superpowers for arrays and objects. They help you transform, filter, and play with your data in cool ways.`,
-  async_await: `Async/await is like ordering food at a restaurant. You place an order (async function) and wait for it to arrive without stopping everything else.`,
-  apis_event_loop: `The event loop is like a busy traffic controller, managing when and how different tasks get processed in JavaScript.`,
-  intro_js: `JavaScript is the magic language that makes websites interactive, like adding special effects to a comic book.`
+  variables_types:
+    'Variables are like labeled boxes that hold values. Use const when it never changes, let when it might.',
+  arrays_objects:
+    'Arrays are ordered lists; objects are labeled compartments. Use [] for arrays and {} for objects.',
+  loops_conditionals:
+    'Conditionals pick a path (if/else). Loops repeat work (for/while) until a condition changes.',
+  functions:
+    'Functions are reusable recipes. Give them inputs (parameters) and return results.',
+  methods_core:
+    'map transforms, filter selects, reduce folds values into one. Practice on small arrays.',
+  async_await:
+    'async/await lets you write asynchronous code that reads top-to-bottom. await pauses until a promise resolves.',
+  apis_event_loop:
+    'The event loop queues callbacks so long tasks don’t block. Timers and fetch complete later on the queue.',
+  intro_js:
+    'JavaScript runs in the browser and on servers (Node). It’s dynamically typed and great for interactivity.',
 };
 
-export async function POST(request: NextRequest) {
+export async function POST(req: Request) {
+  let body: any = {};
   try {
-    const { topic, prompt, wrongChoice } = await request.json();
+    body = await req.json();
+  } catch {
+    // ignore bad JSON; fall back below
+  }
 
-    // Gemini provider
-    if (process.env.GEMINI_API_KEY) {
-      const response = await Promise.race([
-        fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            contents: [{
-              role: 'user',
-              parts: [{
-                text: `You are a friendly JS tutor. Topic: ${topic}. Style: kid-friendly. Level: beginner. Question: ${prompt}${wrongChoice !== undefined ? ` They chose option ${wrongChoice}.` : ''}. Respond in 2–5 short sentences with kid-speak analogies and no code unless necessary.`
-              }]
-            }]
-          })
+  const t = typeof body?.topic === 'string' ? body.topic : 'variables_types';
+  const userPrompt =
+    typeof body?.prompt === 'string' && body.prompt.trim().length > 0
+      ? body.prompt.trim()
+      : 'Explain this topic simply with a kid-friendly analogy and one short code example.';
+  const wrongChoice =
+    typeof body?.wrongChoice === 'string' ? body.wrongChoice : null;
+
+  // If no key present, or you want to keep it simple, return fallback
+  const geminiKey = process.env.GEMINI_API_KEY;
+
+  if (!geminiKey) {
+    return NextResponse.json(
+      {
+        hint:
+          (wrongChoice
+            ? `Think about why "${wrongChoice}" doesn’t match the concept. `
+            : '') + (FALLBACK_HINTS[t] || FALLBACK_HINTS.variables_types),
+      },
+      { status: 200 }
+    );
+  }
+
+  // --- Gemini (non-streaming) ---
+  try {
+    const prompt = [
+      'You are JS Sensei, a patient JavaScript tutor.',
+      'Explain the topic in 3–5 sentences with a kid-friendly analogy and a tiny, valid JS example.',
+      wrongChoice ? `The learner chose: "${wrongChoice}". Address that misconception.` : '',
+      `Topic: ${t}`,
+      `Question/Prompt: ${userPrompt}`,
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    const resp = await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' +
+        geminiKey,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
         }),
-        new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Timeout')), 2000)
-        )
-      ]) as Response;
+      }
+    );
 
-      const data = await response.json();
-      const hint = data.candidates?.[0]?.content?.parts?.[0]?.text || FALLBACK_HINTS[topic];
+    if (!resp.ok) throw new Error(`Gemini error: ${resp.status}`);
 
-      return NextResponse.json({ hint }, { status: 200 });
-    }
+    const json = await resp.json();
+    const text =
+      json?.candidates?.[0]?.content?.parts?.[0]?.text ??
+      (FALLBACK_HINTS[t] || FALLBACK_HINTS.variables_types);
 
-    // Fallback to deterministic hints
-    return NextResponse.json({ 
-      hint: FALLBACK_HINTS[topic] || 'No specific hint available.' 
-    }, { status: 200 });
+    return NextResponse.json({ hint: text }, { status: 200 });
   } catch (error) {
-    // Any error falls back to deterministic hint
     console.error('Hint generation error:', error);
-    return NextResponse.json({ 
-      hint: FALLBACK_HINTS[topic] || 'No specific hint available.' 
-    }, { status: 200 });
+    return NextResponse.json(
+      {
+        hint:
+          (wrongChoice
+            ? `Think about why "${wrongChoice}" doesn’t match the concept. `
+            : '') + (FALLBACK_HINTS[t] || FALLBACK_HINTS.variables_types),
+      },
+      { status: 200 }
+    );
   }
 }
